@@ -1,10 +1,12 @@
+require('dotenv').config()
+const { X_API_KEY } = process.env
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'yumemi-test2',
+    title: 'yumemi-test',
     htmlAttrs: {
       lang: 'en',
     },
@@ -37,6 +39,12 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
   ],
+  privateRuntimeConfig: {
+    apiKey: X_API_KEY,
+  },
+  publicRuntimeConfig: {
+    apiKey: process.env.NODE_ENV !== 'production' ? X_API_KEY : undefined,
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
