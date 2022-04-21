@@ -9,7 +9,7 @@ export default {
   name: 'IndexPage',
   data() {
     return {
-      
+
     }
   },
   async fetch({ app, $config,store }) {
@@ -20,7 +20,7 @@ export default {
     store.commit('setPref', getPref)
   },
   mounted(){
-    console.log('fetch',this.$store.state.pref.result)
+    // console.log('fetch',this.$store.state.pref.result)
   }
 }
 </script>
