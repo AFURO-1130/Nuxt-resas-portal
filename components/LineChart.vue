@@ -1,15 +1,18 @@
 <template>
-  <LineChartGenerator
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :plugins="plugins"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="height"
-  />
+  <div>
+    <LineChartGenerator
+      :chart-options="chartOptions"
+      :chart-data="chartData"
+      :chart-id="chartId"
+      :dataset-id-key="datasetIdKey"
+      :plugins="plugins"
+      :css-classes="cssClasses"
+      :styles="styles"
+      :width="width"
+      :height="height"
+    />
+    <p>{{ chartData.datasets.data }}</p>
+  </div>
 </template>
 
 <script>
@@ -23,7 +26,7 @@ import {
   LineElement,
   LinearScale,
   CategoryScale,
-  PointElement
+  PointElement,
 } from 'chart.js'
 
 ChartJS.register(
@@ -39,68 +42,79 @@ ChartJS.register(
 export default {
   name: 'LineChart',
   components: {
-    LineChartGenerator
+    LineChartGenerator,
   },
   props: {
     chartId: {
       type: String,
-      default: 'line-chart'
+      default: 'line-chart',
     },
     datasetIdKey: {
       type: String,
-      default: 'label'
+      default: 'label',
     },
     width: {
       type: Number,
-      default: 400
+      default: 400,
     },
     height: {
       type: Number,
-      default: 400
+      default: 400,
     },
     cssClasses: {
       default: '',
-      type: String
+      type: String,
     },
     styles: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     plugins: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
+
   data() {
     return {
       chartData: {
-        labels: [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July'
-        ],
+        labels: [],
         datasets: [
+          // // チェックボックスをクリックするたび、下記のオブジェクトを増やしていくようにする
           {
-            label: '岐阜県',
+            label: '',
             backgroundColor: '#f87979',
-            data: [40, 39, 10, 40, 39, 80, 40]
+            data: [],
           },
-          {
-            label: '滋賀県',
-            backgroundColor: '#f87979',
-            data: [9, 3, 10, 10, 9, 8, 4]
-          }
-        ]
+          // {
+          //   label: '滋賀県',
+          //   backgroundColor: '#f87979',
+          //   data: [9, 3, 10, 10, 9, 8, 4]
+          // }
+        ],
       },
       chartOptions: {
         responsive: true,
-        maintainAspectRatio: false
-      }
+        maintainAspectRatio: false,
+      },
     }
-  }
+  },
+  created() {
+    for (let i = 1960; i <= 2045; i += 5) {
+      this.chartData.labels.push(i.toString(10))
+    }
+  },
+  mounted() {
+    this.chartData.datasets[0].data.push(89)
+    console.log('people', this.$store.state.prefPeople.data[0].value)
+
+    console.log(this.chartData.datasets[0].data)
+    // console.log("hoge",this.chartData.datasets[0].data)
+    // console.log('hoge1',this.$store.state.prefPeople.data[0].value)
+    // for(let i= 0;i<18;i++){
+    // console.log("hoge",this.chartData.datasets[i].value)
+
+    // }
+  },
 }
 </script>
