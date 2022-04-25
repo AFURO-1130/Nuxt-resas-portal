@@ -30,12 +30,6 @@ export default {
       isSelected: [],
       populations: [],
       datacollection: { labels: [], datasets: [] },
-      chartOptions: {
-        scales: {
-          x: { title: { display: true, text: '年度' } },
-          y: { title: { display: true, text: '人口数' } },
-        },
-      },
     }
   },
   async mounted() {
@@ -55,10 +49,10 @@ export default {
           { headers: { 'X-API-KEY': this.$config.apiKey } }
         )
         .then((res) => {
-          this.fillData(res.result, prefName)
+          this.chartData(res.result, prefName)
         })
     },
-    fillData(population, prefName) {
+    chartData(population, prefName) {
       this.datacollection = {
         labels: population.data
           .find(({ label }) => label === '総人口')
