@@ -7,11 +7,6 @@ export default {
   extends: Line,
   mixins: [reactiveProp],
   props: ['options'],
-  data() {
-    return {
-
-    }
-  },
   mounted() {
     this.renderChart(this.chartdata, this.options)
   },
